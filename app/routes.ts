@@ -8,4 +8,5 @@ export default [
   route("about", "./routes/about.tsx"),
   route("story", "./routes/ourStory.tsx"),
   route("products", "./routes/productOverview.tsx"),
+  route("orivault", "./routes/orivault.tsx"),
 ] satisfies RouteConfig;
