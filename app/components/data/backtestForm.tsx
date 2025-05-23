@@ -26,6 +26,7 @@ const BacktestForm: React.FC = () => {
     allocation_type: "risk",
     selection_percentage: 1,
     num_of_groups: 10,
+    leverage:1
   });
 
   useEffect(() => {
@@ -161,6 +162,12 @@ const BacktestForm: React.FC = () => {
         <div className="mb-3">
           <label className="form-label">Number of Groups: {formData.num_of_groups}</label>
           <input type="range" className="form-range" name="num_of_groups" min="1" max="20" step="1" value={formData.num_of_groups} onChange={handleChange} />
+        </div>
+
+                {/* Number of Groups */}
+        <div className="mb-3">
+          <label className="form-label">Leverage: {formData.leverage}</label>
+          <input type="range" className="form-range" name="leverage" min="1" max="10" step="1" value={formData.leverage} onChange={handleChange} />
         </div>
 
         <button type="submit" className="btn btn-primary w-100">Run Backtest</button>
