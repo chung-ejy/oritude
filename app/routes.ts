@@ -9,4 +9,5 @@ export default [
   route("story", "./routes/ourStory.tsx"),
   route("products", "./routes/productOverview.tsx"),
   route("orivault", "./routes/orivault.tsx"),
+  route("oriflections", "./routes/oriflections.tsx"),
 ] satisfies RouteConfig;

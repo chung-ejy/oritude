@@ -44,6 +44,9 @@ const Header = () => {
             <li className="nav-item">
               <a className="nav-link text-light" href="/orivault">Orivault</a>
             </li>
+            <li className="nav-item">
+              <a className="nav-link text-light" href="/oriflections">Oriflections</a>
+            </li>
           </ul>
         </div>
       </div>

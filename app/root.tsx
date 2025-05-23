@@ -10,6 +10,7 @@ import {
 import type { Route } from "./+types/root";
 import Header from "./components/layout/Header.jsx";
 import Footer from "./components/layout/Footer.jsx";
+import DataState from "./context/data/dataState.jsx";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -39,14 +40,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
           crossOrigin="anonymous"
         />  
     
-        <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css"/>
+        <link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css"/>
         <script src="https://kit.fontawesome.com/3d8e8aeaa5.js"></script>
 
       </head>
       <body>
+        <DataState>
         <Header /> 
         <main className="mt-3">{children}</main>
         <Footer />
+        </DataState>
         <ScrollRestoration />
         <Scripts />
         <script

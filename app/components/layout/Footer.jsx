@@ -5,12 +5,12 @@ const Footer = () => {
     <footer className="bg-dark text-white py-4">
       <div className="container">
         <div className="row">
-          {/* Branding */}
+
           <div className="col-md-4 mb-3">
             <h5 className="fw-bold">Oritude</h5>
             <p>Clarity Today, Freedom Always</p>
           </div>
-          {/* Links Section */}
+        {/* Branding
           <div className="col-md-4 mb-3">
             <h5 className="fw-bold">Quick Links</h5>
             <ul className="list-unstyled">
@@ -32,7 +32,7 @@ const Footer = () => {
             </ul>
           </div>
           {/* Social Media Section */}
-          <div className="col-md-4 mb-3">
+          {/* <div className="col-md-4 mb-3">
             <h5 className="fw-bold">Follow Us</h5>
             <ul className="list-unstyled">
               <li>
@@ -60,8 +60,8 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
+          </div> */}
+        </div> 
         {/* Disclaimer Section */}
         <div className="text-center mt-4">
           <p className="text-muted small">
@@ -72,7 +72,7 @@ const Footer = () => {
         </div>
         {/* Copyright Section */}
         <div className="text-center mt-3">
-          <small>&copy; {new Date().getFullYear()} Oritude. All Rights Reserved.</small>
+          <small>&copy; {new Date().getFullYear()} Eric Chung. All Rights Reserved.</small>
         </div>
       </div>
     </footer>
