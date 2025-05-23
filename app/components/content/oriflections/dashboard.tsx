@@ -1,6 +1,6 @@
 import React from "react";
 import BacktestForm from "~/components/data/backtestForm";
-import TradesTable from "../../data/tradesTable.jsx";
+import TradesTable from "../../data/TradesTable.jsx";
 import PortfolioChart from "../../data/portfolioChart.jsx";
 import PerformanceCard from "../../data/performanceCard.jsx"; // Import PerformanceCard
 
