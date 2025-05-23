@@ -8,18 +8,16 @@ interface RepoItem {
 // Define state actions
 type Action =
   | { type: "TOGGLE_FOLDER"; payload: string }
-  | { type: "SET_FILE_PREVIEW"; payload: string | null };
+  | { type: "SET_FILE_PREVIEW"; payload: any | null };
 
 const reducer = (state: any, action: Action) => {
   switch (action.type) {
     case "TOGGLE_FOLDER": {
       const newExpandedState = { ...state.expandedFolders };
 
-      // Get the current folder path
       const folderPath = action.payload;
       const isExpanded = newExpandedState[folderPath];
 
-      // If collapsing, collapse all subdirectories too
       if (isExpanded) {
         Object.keys(newExpandedState).forEach((key) => {
           if (key.startsWith(folderPath)) {
@@ -28,9 +26,7 @@ const reducer = (state: any, action: Action) => {
         });
       }
 
-      // Toggle current folder state
       newExpandedState[folderPath] = !isExpanded;
-
       return { ...state, expandedFolders: newExpandedState };
     }
     case "SET_FILE_PREVIEW":
@@ -43,7 +39,7 @@ const reducer = (state: any, action: Action) => {
 const OrivaultRepo: React.FC = () => {
   const [contents, setContents] = useState<RepoItem[]>([]);
   const [state, dispatch] = useReducer(reducer, {
-    expandedFolders: {}, // Start with all folders collapsed
+    expandedFolders: {},
     filePreview: null,
   });
 
@@ -57,17 +53,23 @@ const OrivaultRepo: React.FC = () => {
       .catch((error) => console.error("Error fetching repo contents:", error));
   }, []);
 
-  const fetchFilePreview = (filePath: string) => {
-    fetch(`https://raw.githubusercontent.com/${username}/${repoName}/main/${filePath}`)
-      .then((res) => res.text())
-      .then((data) => dispatch({ type: "SET_FILE_PREVIEW", payload: data }))
-      .catch((error) => console.error("Error fetching file preview:", error));
+  const fetchFilePreview = async (filePath: string) => {
+    try {
+      const res = await fetch(`https://raw.githubusercontent.com/${username}/${repoName}/main/${filePath}`);
+      const data = await res.text();
+
+      if (filePath.endsWith(".ipynb")) {
+        const notebook = JSON.parse(data);
+        dispatch({ type: "SET_FILE_PREVIEW", payload: notebook });
+      } else {
+        dispatch({ type: "SET_FILE_PREVIEW", payload: data });
+      }
+    } catch (error) {
+      console.error("Error fetching file preview:", error);
+    }
   };
 
-  // Extract only file/folder names from paths
   const getName = (path: string) => path.split("/").pop() || path;
-
-  // Calculate indentation based on directory depth
   const getIndentation = (path: string) => `${(path.split("/").length - 1) * 20}px`;
 
   return (
@@ -102,8 +104,44 @@ const OrivaultRepo: React.FC = () => {
         <div className="col-md-8">
           {state.filePreview ? (
             <div>
-              <h4>File Preview</h4>
-              <pre className="border p-3 bg-light">{state.filePreview}</pre>
+              <h4>Notebook Viewer</h4>
+              
+              {typeof state.filePreview === "string" ? (
+                <pre className="border p-3 bg-light">{state.filePreview}</pre>
+              ) : (
+                <div className="border p-3 bg-light">
+                  {state.filePreview.cells.map((cell: any, index: number) => (
+                    <div key={index} className="mb-4">
+                      <h5 className="text-secondary">Cell {index + 1}</h5>
+                      {cell.cell_type === "markdown" ? (
+                        <div className="bg-light p-2">{cell.source.join("")}</div>
+                      ) : (
+                        <div>
+                          <pre className="bg-dark text-light p-2">{cell.source.join("\n")}</pre>
+
+                          {/* Render cell outputs */}
+                          {cell.outputs && cell.outputs.length > 0 && (
+                            <div className="mt-2 p-2 border bg-white">
+                              {cell.outputs.map((output: any, outputIndex: number) => (
+                                <div key={outputIndex}>
+                                  {output.text ? <pre>{output.text.join("\n")}</pre> : null}
+                                  {output.data?.["text/html"] ? (
+                                    <div dangerouslySetInnerHTML={{ __html: output.data["text/html"] }} />
+                                  ) : null}
+                                  {output.data?.["image/png"] ? (
+                                    <img src={`data:image/png;base64,${output.data["image/png"]}`} alt="Notebook Output" />
+                                  ) : null}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              
               <button className="btn btn-secondary mt-2" onClick={() => dispatch({ type: "SET_FILE_PREVIEW", payload: null })}>
                 Close Preview
               </button>
