@@ -22,6 +22,8 @@ const BacktestForm: React.FC = () => {
     selection_type: "top",
     max_price: 100,
     min_price: 0,
+    max_market_cap: 10000000,
+    min_market_cap: 1000000,
     timeframe: "week",
     allocation_type: "risk",
     selection_percentage: 1,
@@ -156,6 +158,18 @@ const BacktestForm: React.FC = () => {
         <div className="mb-3">
           <label className="form-label">Min Price: {formData.min_price}</label>
           <input type="range" className="form-range" name="min_price" min="0" max="500" step="100" value={formData.min_price} onChange={handleChange} />
+        </div>
+
+        {/* Max Price */}
+        <div className="mb-3">
+          <label className="form-label">Max market_cap: {formData.max_market_cap}</label>
+          <input type="range" className="form-range" name="max_market_cap" min="100000000" max="100000000" step="10000000" value={formData.max_market_cap} onChange={handleChange} />
+        </div>
+
+        {/* Min market_cap */}
+        <div className="mb-3">
+          <label className="form-label">Min market_cap: {formData.min_market_cap}</label>
+          <input type="range" className="form-range" name="min_market_cap" min="1000000" max="100000000" step="10000000" value={formData.min_market_cap} onChange={handleChange} />
         </div>
 
         {/* Number of Groups */}
