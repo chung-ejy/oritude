@@ -163,13 +163,13 @@ const BacktestForm: React.FC = () => {
         {/* Max Price */}
         <div className="mb-3">
           <label className="form-label">Max market_cap: {formData.max_market_cap}</label>
-          <input type="range" className="form-range" name="max_market_cap" min="100000000" max="100000000" step="10000000" value={formData.max_market_cap} onChange={handleChange} />
+          <input type="range" className="form-range" name="max_market_cap" min="100000000" max="1000000000" step="10000000" value={formData.max_market_cap} onChange={handleChange} />
         </div>
 
         {/* Min market_cap */}
         <div className="mb-3">
           <label className="form-label">Min market_cap: {formData.min_market_cap}</label>
-          <input type="range" className="form-range" name="min_market_cap" min="1000000" max="100000000" step="10000000" value={formData.min_market_cap} onChange={handleChange} />
+          <input type="range" className="form-range" name="min_market_cap" min="1000000" max="100000000" step="1000000" value={formData.min_market_cap} onChange={handleChange} />
         </div>
 
         {/* Number of Groups */}
