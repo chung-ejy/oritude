@@ -15,7 +15,7 @@ const BacktestForm: React.FC = () => {
   const [formData, setFormData] = useState({
     rolling_window: 10,
     grouping_type: "distance",
-    ranking_metric: "ema_corr",
+    ranking_metric: "optimal",
     risk_type: "coefficient_of_variation",
     stoploss: 0.5,
     position_type: "long",
@@ -149,28 +149,28 @@ const BacktestForm: React.FC = () => {
         </div>
 
         {/* Max Price */}
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Max Price: {formData.max_price}</label>
           <input type="range" className="form-range" name="max_price" min="100" max="1000" step="100" value={formData.max_price} onChange={handleChange} />
-        </div>
+        </div> */}
 
         {/* Min Price */}
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Min Price: {formData.min_price}</label>
           <input type="range" className="form-range" name="min_price" min="0" max="500" step="100" value={formData.min_price} onChange={handleChange} />
-        </div>
+        </div> */}
 
         {/* Max Price */}
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Max market_cap: {formData.max_market_cap}</label>
           <input type="range" className="form-range" name="max_market_cap" min="100000000" max="1000000000" step="10000000" value={formData.max_market_cap} onChange={handleChange} />
-        </div>
+        </div> */}
 
         {/* Min market_cap */}
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Min market_cap: {formData.min_market_cap}</label>
           <input type="range" className="form-range" name="min_market_cap" min="1000000" max="100000000" step="1000000" value={formData.min_market_cap} onChange={handleChange} />
-        </div>
+        </div> */}
 
         {/* Number of Groups */}
         <div className="mb-3">
