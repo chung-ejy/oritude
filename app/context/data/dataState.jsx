@@ -33,8 +33,8 @@ const DataState = (props) => {
     };
 
     const [state, dispatch] = useReducer(dataReducer, initialState);
-    // const base_url = "https://orivault.onrender.com";
-    const base_url = "http://127.0.0.1:5000";
+    const base_url = "https://orivault.onrender.com";
+    // const base_url = "http://127.0.0.1:5000";
 
     const setError = (msg, type) => {
         dispatch({ type: SET_ERROR, payload: { msg, type } });
