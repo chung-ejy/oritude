@@ -11,6 +11,7 @@ const PortfolioChart = () => {
   const [processedData, setProcessedData] = useState([]);
 
   useEffect(() => {
+    const { portfolio } = backtestResults;
     if (portfolio && portfolio.length > 0) {
       const transformed = portfolio.map(entry => ({
         date: new Date(entry.date).toLocaleDateString(),

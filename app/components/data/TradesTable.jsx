@@ -1,9 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import DataContext from '../../context/data/dataContext';
 
 const TradesTable = () => {
   const { loading, backtestResults } = useContext(DataContext);
   const {trades} = backtestResults
+  useEffect(() => {
+    const { trades } = backtestResults; 
+  }, [backtestResults]);
   const convertToCSV = (data) => {
     const csvRows = [];
     const headers = Object.keys(data[0]);

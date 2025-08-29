@@ -1,9 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import dataContext from "../../context/data/dataContext";
 
 const PerformanceCard: React.FC = () => {
   const { loading, backtestResults } = useContext(dataContext);
-  const performance = backtestResults?.metrics; // Renaming "metrics" to "performance"
+  const performance = backtestResults?.metrics;
+  useEffect(() => {
+  if (backtestResults.metrics) {
+      const performance = backtestResults?.metrics;
+    }
+  }, [backtestResults]);
 
   if (loading) {
     return <p>Loading performance data...</p>;
