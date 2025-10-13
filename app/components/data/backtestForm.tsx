@@ -7,32 +7,24 @@ const BacktestForm: React.FC = () => {
 
   const { 
     title, getPositionType, getTimeframe, getIndicator, 
-    getRiskType, getAllocationType, getGroupingType, 
+    getRiskType, getAllocationType, 
     getSelectionType, runBacktest, positionType, timeframe, 
-    riskType, allocationType, selectionType, groupingType, indicator 
+    riskType, allocationType, selectionType, indicator 
   } = context;
 
   const [formData, setFormData] = useState({
     rolling_window: 10,
-    grouping_type: "distance",
-    ranking_metric: "optimal",
+    metric: "distance",
+    indicator: "optimal",
     risk_type: "coefficient_of_variation",
-    stoploss: 0.5,
     position_type: "long",
     selection_type: "top",
-    max_price: 100,
-    min_price: 0,
-    max_market_cap: 10000000,
-    min_market_cap: 1000000,
     timeframe: "week",
     allocation_type: "risk",
-    selection_percentage: 1,
     num_of_groups: 10,
-    leverage:1
   });
 
   useEffect(() => {
-    getGroupingType();
     getPositionType();
     getTimeframe();
     getIndicator();
@@ -56,9 +48,14 @@ const BacktestForm: React.FC = () => {
     setFormData({ ...formData, [name]: castedValue });
 
     // Ensure indicator selection updates ranking_metric
-    if (name === "ranking_metric") {
-      setFormData({ ...formData, ranking_metric: castedValue });
+    if (name === "indicator") {
+      setFormData({ ...formData, indicator: castedValue });
     }
+
+    if (name === "metric") {
+      setFormData({ ...formData, metric: castedValue });
+    }
+
   };
 
   return (
@@ -78,8 +75,8 @@ const BacktestForm: React.FC = () => {
 
         {/* Indicator Dropdown - Updates Ranking Metric */}
         <div className="mb-3">
-          <label className="form-label">Indicator (Updates Ranking Metric)</label>
-          <select className="form-select" name="ranking_metric" value={formData.ranking_metric} onChange={handleChange}>
+          <label className="form-label">Indicator</label>
+          <select className="form-select" name="indicator" value={formData.indicator} onChange={handleChange}>
             {indicator.map((ind) => (
               <option key={ind} value={ind}>{ind}</option>
             ))}
@@ -88,9 +85,9 @@ const BacktestForm: React.FC = () => {
 
         {/* Grouping Type Dropdown */}
         <div className="mb-3">
-          <label className="form-label">Grouping Type</label>
-          <select className="form-select" name="grouping_type" value={formData.grouping_type} onChange={handleChange}>
-            {groupingType.map((gt) => (
+          <label className="form-label">Metric</label>
+          <select className="form-select" name="metric" value={formData.metric} onChange={handleChange}>
+            {indicator.map((gt) => (
               <option key={gt} value={gt}>{gt}</option>
             ))}
           </select>
@@ -142,11 +139,11 @@ const BacktestForm: React.FC = () => {
           <input type="range" className="form-range" name="rolling_window" min="5" max="100" step="5" value={formData.rolling_window} onChange={handleChange} />
         </div>
 
-        {/* Stoploss */}
+        {/* Stoploss
         <div className="mb-3">
           <label className="form-label">Stoploss: {formData.stoploss}</label>
           <input type="range" className="form-range" name="stoploss" min="0.05" max="1" step="0.05" value={formData.stoploss} onChange={handleChange} />
-        </div>
+        </div> */}
 
         {/* Max Price */}
         {/* <div className="mb-3">
@@ -179,10 +176,10 @@ const BacktestForm: React.FC = () => {
         </div>
 
                 {/* Number of Groups */}
-        <div className="mb-3">
+        {/* <div className="mb-3">
           <label className="form-label">Leverage: {formData.leverage}</label>
           <input type="range" className="form-range" name="leverage" min="1" max="10" step="1" value={formData.leverage} onChange={handleChange} />
-        </div>
+        </div> */}
 
         <button type="submit" className="btn btn-primary w-100">Run Backtest</button>
       </form>
