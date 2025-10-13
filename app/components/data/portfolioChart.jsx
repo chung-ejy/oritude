@@ -16,6 +16,7 @@ const PortfolioChart = () => {
       const transformed = portfolio.map(entry => ({
         date: new Date(entry.date).toLocaleDateString(),
         return: entry.pnl,
+        raw_return: entry.raw_pnl,
         benchmark_return: entry.benchmark_pnl,
       }));
       setProcessedData(transformed);
@@ -40,6 +41,7 @@ const PortfolioChart = () => {
           <Legend />
           <Line type="monotone" dataKey="return" stroke="red" dot={false} />
           <Line type="monotone" dataKey="benchmark_return" stroke="blue" dot={false} />
+          <Line type="monotone" dataKey="raw_return" stroke="green" dot={false} />
         </LineChart>
       </ResponsiveContainer>
     </div>
