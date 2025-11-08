@@ -1,6 +1,6 @@
 import { 
   SET_LOADING, STOP_LOADING, SET_ERROR, CLEAR_ERROR, 
-  GET_POSITION_TYPE, GET_TIMEFRAME, GET_INDICATOR, 
+  GET_POSITION_TYPE, GET_TIMEFRAME, GET_INDICATOR, GET_METRIC,
      GET_RISK_TYPE, GET_ALLOCATION_TYPE, 
      GET_GROUPING_TYPE,
   GET_SELECTION_TYPE, BACKTEST 
@@ -50,6 +50,13 @@ export default (state, action) => {
       return {
         ...state,
         indicator: action.payload.data,
+        loading: false
+      };
+    
+    case GET_METRIC:
+      return {
+        ...state,
+        metric: action.payload.data,
         loading: false
       };
 

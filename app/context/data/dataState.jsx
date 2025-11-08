@@ -1,6 +1,7 @@
 import { 
     SET_LOADING, STOP_LOADING, SET_ERROR, CLEAR_ERROR, 
     GET_POSITION_TYPE, GET_TIMEFRAME, GET_INDICATOR, 
+    GET_METRIC,
      GET_RISK_TYPE, GET_ALLOCATION_TYPE, 
     GET_GROUPING_TYPE,
     GET_SELECTION_TYPE, BACKTEST 
@@ -18,6 +19,7 @@ const DataState = (props) => {
         positionType: [],
         timeframe: [],
         indicator: [],
+        metric:[],
         riskType: [],
         allocationType: [],
         selectionType: [],
@@ -94,6 +96,18 @@ const DataState = (props) => {
             });
     };
 
+    // Fetch Indicators
+    const getMetric = () => {
+        setLoading();
+        axios.get(`${base_url}/api/metric`)
+            .then((res) => {
+                dispatch({ type: GET_METRIC, payload: res.data });
+            })
+            .catch((err) => {
+                stopLoading();
+                setError(err.message, "danger");
+            });
+    };
     // Fetch Risk Types
     const getRiskType = () => {
         setLoading();
@@ -164,6 +178,7 @@ const DataState = (props) => {
             getPositionType,
             getTimeframe,
             getIndicator,
+            getMetric,
             getRiskType,
             getAllocationType,
             getSelectionType,

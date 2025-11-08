@@ -9,7 +9,8 @@ const BacktestForm: React.FC = () => {
     title, getPositionType, getTimeframe, getIndicator, 
     getRiskType, getAllocationType, 
     getSelectionType, runBacktest, positionType, timeframe, 
-    riskType, allocationType, selectionType, indicator 
+    riskType, allocationType, selectionType, indicator , metric, groupingType
+    ,getGroupingType, getMetric
   } = context;
 
   const [formData, setFormData] = useState({
@@ -19,6 +20,7 @@ const BacktestForm: React.FC = () => {
     risk_type: "coefficient_of_variation",
     position_type: "long",
     selection_type: "top",
+    grouping_type: "horizontal",
     timeframe: "week",
     allocation_type: "risk",
     num_of_groups: 10,
@@ -31,6 +33,8 @@ const BacktestForm: React.FC = () => {
     getRiskType();
     getAllocationType();
     getSelectionType();
+    getGroupingType();
+    getMetric();
   }, [title]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -83,11 +87,11 @@ const BacktestForm: React.FC = () => {
           </select>
         </div>
 
-        {/* Grouping Type Dropdown */}
+        {/* Metric Type Dropdown */}
         <div className="mb-3">
           <label className="form-label">Metric</label>
           <select className="form-select" name="metric" value={formData.metric} onChange={handleChange}>
-            {indicator.map((gt) => (
+            {metric.map((gt) => (
               <option key={gt} value={gt}>{gt}</option>
             ))}
           </select>
@@ -128,6 +132,16 @@ const BacktestForm: React.FC = () => {
           <label className="form-label">Selection Type</label>
           <select className="form-select" name="selection_type" value={formData.selection_type} onChange={handleChange}>
             {selectionType.map((st) => (
+              <option key={st} value={st}>{st}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Grouping Type Dropdown */}
+        <div className="mb-3">
+          <label className="form-label">Grouping Type</label>
+          <select className="form-select" name="grouping_type" value={formData.grouping_type} onChange={handleChange}>
+            {groupingType.map((st) => (
               <option key={st} value={st}>{st}</option>
             ))}
           </select>

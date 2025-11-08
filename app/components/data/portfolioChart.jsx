@@ -39,7 +39,7 @@ const PortfolioChart = () => {
           <YAxis domain={[1, 'auto']} />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="return" stroke="red" dot={false} />
+          {/* <Line type="monotone" dataKey="return" stroke="red" dot={false} /> */}
           <Line type="monotone" dataKey="benchmark_return" stroke="blue" dot={false} />
           <Line type="monotone" dataKey="raw_return" stroke="green" dot={false} />
         </LineChart>
